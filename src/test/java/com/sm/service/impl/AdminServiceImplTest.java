@@ -14,7 +14,7 @@ public class AdminServiceImplTest {
     @Test
     public void adminLogin() {
         ResultEntity resultEntity =
-                adminService.adminLogin("aaa@qq.com","520");
+                adminService.adminLogin("wechat","520");
         System.out.println(resultEntity);
     }
 }

@@ -1,6 +1,8 @@
 package com.sm.frame;
 
+import com.sm.entity.Admin;
 import com.sm.factory.ServiceFactory;
+import com.sm.ui.ImgPanel;
 import com.sm.utils.ResultEntity;
 
 import javax.swing.*;
@@ -8,7 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class AdminLoginFrame extends JFrame{
-    private JPanel rootPanel;
+    private ImgPanel rootPanel;
     private JTextField accountField;
     private JPasswordField passwordField;
     private JButton 登录Button;
@@ -17,10 +19,14 @@ public class AdminLoginFrame extends JFrame{
     private JLabel passwordLabel;
 
     public AdminLoginFrame() {
+        //设置需要的背景图
+        rootPanel.setFileName("login.jpg");
+        //组件重绘
+        rootPanel.repaint();
         setTitle("管理员登录");
         setContentPane(rootPanel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(600,400);
+        setSize(400,400);
         setLocationRelativeTo(null);
         setVisible(true);
         登录Button.addActionListener(new ActionListener() {
@@ -33,7 +39,7 @@ public class AdminLoginFrame extends JFrame{
                 JOptionPane.showMessageDialog(rootPanel, resultEntity.getMessage());
                 //登录成功，进入主界面，并关闭登录界面
                 if (resultEntity.getCode() == 0){
-                    new AdminFrame();
+                    new AdminMainFrame();
                     AdminLoginFrame.this.dispose();
                 }else if (resultEntity.getCode() == 1){
                     /**
@@ -59,7 +65,6 @@ public class AdminLoginFrame extends JFrame{
             }
         });
     }
-
     public static void main(String[] args)throws Exception {
         String lookAndFeel = UIManager.getSystemLookAndFeelClassName();
         UIManager.setLookAndFeel(lookAndFeel);

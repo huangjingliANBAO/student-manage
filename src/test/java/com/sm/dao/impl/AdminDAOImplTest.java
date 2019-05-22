@@ -15,7 +15,7 @@ public class AdminDAOImplTest {
     @Test
     public void getAdminByAccount() {
         try {
-            Admin admin = adminDAO.getAdminByAccount("aaa@qq.com");
+            Admin admin = adminDAO.getAdminByAccount("wechat");
             if (admin != null) {
                 System.out.println(admin);
             }
