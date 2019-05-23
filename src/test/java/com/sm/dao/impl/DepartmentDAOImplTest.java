@@ -38,5 +38,12 @@ public class DepartmentDAOImplTest {
 
     @Test
     public void deleteDepartmentById() {
+        int id = 2;
+        try {
+            departmentDAO.deleteDepartmentById(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 }

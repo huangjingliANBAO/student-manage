@@ -21,14 +21,15 @@ public class DepartmentServiceImplTest {
 
     @Test
     public void addDepartment() {
-       Department department = new Department();
-       department.setDepartmentName("美术系");
-       department.setLogo("https://huangjingli.oss-cn-beijing.aliyuncs.com/logo/75ddc1ab-563a-4043-a776-7e0190b27129.png");
-       departmentService.addDepartment(department);
+        Department department = new Department();
+        department.setDepartmentName("美术系");
+        department.setLogo("https://huangjingli.oss-cn-beijing.aliyuncs.com/logo/75ddc1ab-563a-4043-a776-7e0190b27129.png");
+        departmentService.addDepartment(department);
     }
 
     @Test
     public void deleteDepartment() {
-
+        int id = 2;
+        departmentService.deleteDepartment(id);
     }
 }
