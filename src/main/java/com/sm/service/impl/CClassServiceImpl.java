@@ -20,4 +20,24 @@ public class CClassServiceImpl implements CClassService {
         }
         return cClassList;
     }
+
+    @Override
+    public void deleteClassById(int id) {
+        try {
+            cClassDAO.deleteClassById(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public int addClass(CClass cClass) {
+        int n = 0;
+        try {
+            n = cClassDAO.inserClass(cClass);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return n;
+    }
 }

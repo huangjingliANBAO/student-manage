@@ -33,4 +33,30 @@ public class CClassDAOImpl implements CClassDAO {
         jdbcUtil.closeConnection();
         return cClassList;
     }
+
+    @Override
+    public int deleteClassById(int id) throws SQLException {
+        JDBCUtil jdbcUtil = JDBCUtil.getInitJDBCUtil();
+        Connection connection = jdbcUtil.getConnection();
+        String sql = "DELETE FROM t_class WHERE id = " + id;
+        PreparedStatement pstmt = connection.prepareStatement(sql);
+        int n = pstmt.executeUpdate();
+        pstmt.close();
+        connection.close();
+        return  n;
+    }
+
+    @Override
+    public int inserClass(CClass cClass) throws SQLException {
+        JDBCUtil jdbcUtil = JDBCUtil.getInitJDBCUtil();
+        Connection connection = jdbcUtil.getConnection();
+        String sql = "INSERT INTO t_class(department_id,class_name)VALUES(?,?)";
+        PreparedStatement pstmt = connection.prepareStatement(sql);
+        pstmt.setInt(1,cClass.getDepartmentId());
+        pstmt.setString(2,cClass.getClassName());
+        int n = pstmt.executeUpdate();
+        pstmt.close();
+        connection.close();
+        return n;
+    }
 }

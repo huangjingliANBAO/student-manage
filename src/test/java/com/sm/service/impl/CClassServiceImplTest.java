@@ -16,4 +16,18 @@ public class CClassServiceImplTest {
         List<CClass> cClassList = cClassService.selectByDepartmentId(3);
         cClassList.forEach(cClass -> System.out.println(cClass));
     }
+
+    @Test
+    public void deleteClassById() {
+     int id = 2;
+     cClassService.deleteClassById(id);
+    }
+
+    @Test
+    public void addClass() {
+        CClass cClass = new CClass();
+        cClass.setDepartmentId(7);
+        cClass.setClassName("国际1821");
+        cClassService.addClass(cClass);
+    }
 }

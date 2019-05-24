@@ -11,4 +11,7 @@ public interface CClassService {
      * @return
      */
     List<CClass> selectByDepartmentId(int departmentId);
+    void deleteClassById(int id);
+
+    int addClass(CClass cClass);
 }

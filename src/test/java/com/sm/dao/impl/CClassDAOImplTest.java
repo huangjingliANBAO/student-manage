@@ -23,4 +23,26 @@ public class CClassDAOImplTest {
         cClassList.forEach(cClass -> System.out.println(cClass));
 
     }
+
+    @Test
+    public void deleteClassById() {
+     int id = 1;
+        try {
+            cClassDAO.deleteClassById(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void inserClass() {
+        CClass cClass = new CClass();
+        cClass.setDepartmentId(7);
+        cClass.setClassName("国际1821");
+        try {
+            int n = cClassDAO.inserClass(cClass);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

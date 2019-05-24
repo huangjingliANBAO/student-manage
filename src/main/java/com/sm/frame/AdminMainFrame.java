@@ -45,7 +45,7 @@ public class AdminMainFrame extends JFrame {
     private JLabel logoLabel;
     private JLabel adminLabel;
     private JLabel timeLabel;
-    private JComboBox comboBox1;
+    //private JComboBox depcomboBox;
     private JTextField textField1;
     private JButton 新增班级Button;
     private JPanel treePanel;
@@ -56,6 +56,8 @@ public class AdminMainFrame extends JFrame {
     private Admin admin;
     private TimerTask clockTask;
     private Timer timer;
+    private JComboBox<Department> depcomboBox;
+    private int departmentId = 0;
 
 
 
@@ -90,7 +92,7 @@ public class AdminMainFrame extends JFrame {
         timer = new Timer();
         timer.schedule(clockTask,0,1000);
         //设置需要的背景图
-        rootPanel.setFileName("bg.jpg");
+        rootPanel.setFileName("bg2.jpg");
        //组件重绘
         rootPanel.repaint();
         CardLayout cardLayout= (CardLayout) centerPanel.getLayout();
@@ -222,6 +224,37 @@ cardLayout.show(centerPanel,"Card1");
              }
             }
         });
+        //下拉框
+        depcomboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //得到选中项的索引
+                int index = depcomboBox.getSelectedIndex();
+                //按照索引取出项，就是一个Department对象，然后取出其id备用
+                Department department = (Department) depcomboBox.getItemAt(index);
+                departmentId = department.getId();
+            }
+        });
+        新增班级Button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CClass cClass = new CClass();
+                cClass.setClassName(textField1.getText().trim());
+                cClass.setDepartmentId(departmentId);
+                int n = ServiceFactory.getCClassServiceInstance().addClass(cClass);
+                if (n == 1){
+                    JOptionPane.showMessageDialog(rootPanel,"新增班级成功");
+                    //刷新界面数据
+                    showDepartments();
+                    //将选择图片的按钮可见
+                    新增Button.setVisible(true);
+                    //清空文本框
+                    textField1.setText("");
+                }else{
+                    JOptionPane.showMessageDialog(rootPanel,"新增班级失败");
+                }
+            }
+        });
     }
     private void showDepartments() {
         //移除原有数据
@@ -263,14 +296,14 @@ cardLayout.show(centerPanel,"Card1");
             contentPanel.revalidate();
         }
     }
-    private void showCombox(List<Department> departmentList){
+    private void showCombobox(List<Department> departmentList){
         for (Department department : departmentList){
-            comboBox1.addItem(department);
+            depcomboBox.addItem(department);
         }
     }
     private void showClassPanel(){
         List<Department> departmentList = ServiceFactory.getDepartmentServiceInstance().selectAll();
-        showCombox(departmentList);
+        showCombobox(departmentList);
         showTree(departmentList);
         showClasses(departmentList);
     }
@@ -280,7 +313,7 @@ cardLayout.show(centerPanel,"Card1");
         Font titleFont = new Font("微软雅黑",Font.PLAIN,20);
         for (Department department : departmentList ){
             ImgPanel depPanel = new ImgPanel();
-            depPanel.setFileName("张俊瑞.png");
+            depPanel.setFileName("login.jpg");
             depPanel.repaint();
             depPanel.setPreferredSize(new Dimension(350,500));
             depPanel.setLayout(null);
@@ -303,8 +336,43 @@ cardLayout.show(centerPanel,"Card1");
             depPanel.add(listScrollPanel);
             classContentPanel.add(depPanel);
 
+            JPopupMenu jPopupMenu = new JPopupMenu();
+            JMenuItem item1 = new JMenuItem("修改");
+            JMenuItem item2 = new JMenuItem("删除");
+            jPopupMenu.add(item1);
+            jPopupMenu.add(item2);
+            jList.add(jPopupMenu);
+
+            jList.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    //选中项的下标
+                    int index = jList.getSelectedIndex();
+                    //点击鼠标右键
+                    if (e.getButton()==3){
+                        //在鼠标位置弹出菜单
+                        jPopupMenu.show(jList,e.getX(),e.getY());
+                        //取出选中数据
+                        CClass cClass = jList.getModel().getElementAt(index);
+                        //对删除菜单项添加监听
+                        item2.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                int choice = JOptionPane.showConfirmDialog(depPanel,"删除？");
+                                if (choice==0){
+                                    ServiceFactory.getCClassServiceInstance().deleteClassById(cClass.getId());
+                                    listModel.remove(index);
+                                    showTree(ServiceFactory.getDepartmentServiceInstance().selectAll());
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+
         }
     }
+
     private void showTree(List<Department> departmentList){
         treePanel.removeAll();
         DefaultMutableTreeNode top = new DefaultMutableTreeNode("南工院");
@@ -323,6 +391,7 @@ cardLayout.show(centerPanel,"Card1");
         treePanel.add(tree);
         treePanel.revalidate();
     }
+
     public static void main (String[]args)throws Exception{
         new AdminMainFrame(DAOFactory.getAdminDAOInstance().getAdminByAccount("wechat"));
         String lookAndFeel = UIManager.getSystemLookAndFeelClassName();
