@@ -43,7 +43,6 @@ public class AliOSSUtil {
         ossClient.shutdown();
         return url.toString();
     }
-
     public static void main(String[] args) {
         File file = new File("D:/image/1.png");
         String url = ossUpload(file);
