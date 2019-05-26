@@ -2,69 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b685af02-c647-4b66-9724-fb0f87be06dd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/target/classes/com/sm/frame/AdminMainFrame$18.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/sm/frame/AdminMainFrame$4$1$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/sm/frame/AdminMainFrame$4$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sm/dao/CClassDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sm/dao/CClassDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sm/dao/StudentDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sm/dao/StudentDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sm/dao/impl/CClassDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sm/dao/impl/CClassDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sm/dao/impl/StudentDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sm/dao/impl/StudentDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sm/frame/AdminMainFrame.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sm/frame/AdminMainFrame.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sm/frame/AdminMainFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sm/frame/AdminMainFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sm/service/CClassService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sm/service/CClassService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sm/service/StudentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sm/service/StudentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sm/service/impl/CClassServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sm/service/impl/CClassServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sm/service/impl/StudentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sm/service/impl/StudentServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sm/utils/AliOSSUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sm/utils/AliOSSUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sm/utils/JDBCUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sm/utils/JDBCUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/img/3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/img/4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/img/5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/img/6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/img/7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/sm/dao/impl/CClassDAOImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/sm/dao/impl/CClassDAOImplTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/sm/dao/impl/StudentDAOImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/sm/dao/impl/StudentDAOImplTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/sm/service/impl/CClassServiceImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/sm/service/impl/CClassServiceImplTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/sm/service/impl/StudentServiceImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/sm/service/impl/StudentServiceImplTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/sm/dao/CClassDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/sm/dao/CClassDAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/sm/dao/StudentDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/sm/dao/StudentDAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/sm/dao/impl/CClassDAOImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/sm/dao/impl/CClassDAOImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/sm/dao/impl/StudentDAOImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/sm/dao/impl/StudentDAOImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/sm/frame/AdminMainFrame$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/sm/frame/AdminMainFrame$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/sm/frame/AdminMainFrame$10.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/sm/frame/AdminMainFrame$10.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/sm/frame/AdminMainFrame$11.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/sm/frame/AdminMainFrame$11.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/sm/frame/AdminMainFrame$12.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/sm/frame/AdminMainFrame$12.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/sm/frame/AdminMainFrame$13.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/sm/frame/AdminMainFrame$13.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/sm/frame/AdminMainFrame$14.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/sm/frame/AdminMainFrame$14.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/sm/frame/AdminMainFrame$15.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/sm/frame/AdminMainFrame$15.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/sm/frame/AdminMainFrame$16$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/sm/frame/AdminMainFrame$17$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/sm/frame/AdminMainFrame$16.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/sm/frame/AdminMainFrame$16.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/sm/frame/AdminMainFrame$17.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/sm/frame/AdminMainFrame$17.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/sm/frame/AdminMainFrame$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/sm/frame/AdminMainFrame$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/sm/frame/AdminMainFrame$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/sm/frame/AdminMainFrame$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/sm/frame/AdminMainFrame$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/sm/frame/AdminMainFrame$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/sm/frame/AdminMainFrame$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/sm/frame/AdminMainFrame$5.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/sm/frame/AdminMainFrame$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/sm/frame/AdminMainFrame$6.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/sm/frame/AdminMainFrame$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/sm/frame/AdminMainFrame$7.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/sm/frame/AdminMainFrame$8.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/sm/frame/AdminMainFrame$8.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/sm/frame/AdminMainFrame$9.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/sm/frame/AdminMainFrame$9.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/sm/frame/AdminMainFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/sm/frame/AdminMainFrame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/sm/service/CClassService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/sm/service/CClassService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/sm/service/StudentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/sm/service/StudentService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/sm/service/impl/CClassServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/sm/service/impl/CClassServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/sm/service/impl/StudentServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/sm/service/impl/StudentServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/sm/utils/AliOSSUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/sm/utils/AliOSSUtil.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/sm/utils/JDBCUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/sm/utils/JDBCUtil.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/img/3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/img/4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/img/5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/img/6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/img/7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/sm/dao/impl/CClassDAOImplTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/sm/dao/impl/CClassDAOImplTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/sm/dao/impl/StudentDAOImplTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/sm/dao/impl/StudentDAOImplTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/sm/service/impl/CClassServiceImplTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/sm/service/impl/CClassServiceImplTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/sm/service/impl/StudentServiceImplTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/sm/service/impl/StudentServiceImplTest.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -118,7 +56,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/sm/frame/AdminMainFrame.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="5237">
@@ -160,7 +98,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/sm/frame/AdminMainFrame.form">
           <provider selected="true" editor-type-id="ui-designer" />
         </entry>
@@ -266,7 +204,7 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-7" />
     <option name="width" value="974" />
     <option name="height" value="1047" />
@@ -557,7 +495,7 @@
       <workItem from="1558624214900" duration="665000" />
       <workItem from="1558625448641" duration="154000" />
       <workItem from="1558669328937" duration="47721000" />
-      <workItem from="1558857019759" duration="546000" />
+      <workItem from="1558857019759" duration="1580000" />
     </task>
     <servers />
   </component>
@@ -594,7 +532,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="49086000" />
+    <option name="totallyTimeSpent" value="50120000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -872,9 +810,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/sm/frame/AdminMainFrame.form">
-      <provider selected="true" editor-type-id="ui-designer" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/sm/dao/CClassDAO.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-389">
@@ -932,6 +867,9 @@
           </folding>
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/sm/frame/AdminMainFrame.form">
+      <provider selected="true" editor-type-id="ui-designer" />
     </entry>
   </component>
   <component name="masterDetails">
