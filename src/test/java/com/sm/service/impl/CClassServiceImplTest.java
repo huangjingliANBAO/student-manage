@@ -5,12 +5,14 @@ import com.sm.factory.ServiceFactory;
 import com.sm.service.CClassService;
 import org.junit.Test;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import static org.junit.Assert.*;
 
 public class CClassServiceImplTest {
     private CClassService cClassService = ServiceFactory.getCClassServiceInstance();
+
     @Test
     public void selectByDepartmentId() {
         List<CClass> cClassList = cClassService.selectByDepartmentId(3);
@@ -19,8 +21,8 @@ public class CClassServiceImplTest {
 
     @Test
     public void deleteClassById() {
-     int id = 2;
-     cClassService.deleteClassById(id);
+        int id = 2;
+        cClassService.deleteClassById(id);
     }
 
     @Test
@@ -29,5 +31,11 @@ public class CClassServiceImplTest {
         cClass.setDepartmentId(7);
         cClass.setClassName("国际1821");
         cClassService.addClass(cClass);
+    }
+
+    @Test
+    public void selectAll() {
+        List<CClass> cClassList = cClassService.selectAll();
+        cClassList.forEach(cClass -> System.out.println(cClass));
     }
 }

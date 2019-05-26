@@ -45,4 +45,15 @@ public class CClassDAOImplTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void selectAll() {
+        List<CClass> cClassList = null;
+        try {
+            cClassList = cClassDAO.selectAll();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        cClassList.forEach(cClass -> System.out.println(cClass));
+    }
 }

@@ -40,4 +40,15 @@ public class CClassServiceImpl implements CClassService {
         }
         return n;
     }
+
+    @Override
+    public List<CClass> selectAll()  {
+        List<CClass> cClassList = null;
+        try {
+            cClassList = cClassDAO.selectAll();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return cClassList;
+    }
 }

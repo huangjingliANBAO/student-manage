@@ -18,22 +18,14 @@ public class CClassDAOImpl implements CClassDAO {
         Connection connection = jdbcUtil.getConnection();
         String sql = "SELECT * FROM t_class WHERE department_id=? ";
         PreparedStatement pstmt = connection.prepareStatement(sql);
-        pstmt.setString(1, String.valueOf(departmentId));
+        pstmt.setInt(1, departmentId);
         ResultSet rs = pstmt.executeQuery();
-        List<CClass> cClassList = new ArrayList<CClass>();
-        while (rs.next()){
-            CClass cClass = new CClass();
-            cClass.setId(rs.getInt("id"));
-            cClass.setDepartmentId(rs.getInt("department_id"));
-            cClass.setClassName(rs.getString("class_name"));
-            cClassList.add(cClass);
-        }
+        List<CClass> cClassList = convert(rs);
         rs.close();
         pstmt.close();
         jdbcUtil.closeConnection();
         return cClassList;
     }
-
     @Override
     public int deleteClassById(int id) throws SQLException {
         JDBCUtil jdbcUtil = JDBCUtil.getInitJDBCUtil();
@@ -45,7 +37,6 @@ public class CClassDAOImpl implements CClassDAO {
         connection.close();
         return  n;
     }
-
     @Override
     public int inserClass(CClass cClass) throws SQLException {
         JDBCUtil jdbcUtil = JDBCUtil.getInitJDBCUtil();
@@ -58,5 +49,36 @@ public class CClassDAOImpl implements CClassDAO {
         pstmt.close();
         connection.close();
         return n;
+    }
+    @Override
+    public List<CClass> selectAll() throws SQLException {
+        JDBCUtil jdbcUtil = JDBCUtil.getInitJDBCUtil();
+        Connection connection = jdbcUtil.getConnection();
+        String sql = "SELECT * FROM t_class ORDER BY department_id";
+        PreparedStatement pstmt = connection.prepareStatement(sql);
+        ResultSet rs = pstmt.executeQuery();
+        List<CClass> cClassList = convert(rs);
+        rs.close();
+        pstmt.close();
+        jdbcUtil.closeConnection();
+        return cClassList;
+    }
+
+    /**
+     * 封装
+     * @param rs
+     * @return
+     * @throws SQLException
+     */
+    private List<CClass> convert(ResultSet rs)throws SQLException{
+        List<CClass> cClassList = new ArrayList<>();
+        while (rs.next()) {
+            CClass cClass = new CClass();
+            cClass.setId(rs.getInt("id"));
+            cClass.setDepartmentId(rs.getInt("department_id"));
+            cClass.setClassName(rs.getString("class_name"));
+            cClassList.add(cClass);
+        }
+        return cClassList;
     }
 }

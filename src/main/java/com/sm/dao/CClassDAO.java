@@ -29,4 +29,11 @@ public interface CClassDAO {
      * @throws SQLException
      */
     int inserClass(CClass cClass)throws SQLException;
+
+    /**
+     * 查询所有班级
+     * @return List<CClass>
+     * @throws SQLException
+     */
+    List<CClass> selectAll()throws SQLException;
 }

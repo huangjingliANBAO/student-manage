@@ -22,4 +22,37 @@ public class StudentServiceImpl implements StudentService {
         }
         return studentVOList;
     }
+
+    @Override
+    public List<StudentVO> selectByDepartmentId(int departmentId) {
+        List<StudentVO> studentVOList = null;
+        try {
+            studentVOList = studentDAO.selectByDepartmentId(departmentId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return studentVOList;
+    }
+
+    @Override
+    public List<StudentVO> selectByClassId(int classId) {
+        List<StudentVO> studentVOList = null;
+        try {
+            studentVOList = studentDAO.selectByClassId(classId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return studentVOList;
+    }
+
+    @Override
+    public List<StudentVO> selectByKeywords(String keywords) {
+        List<StudentVO> studentVOList = null;
+        try {
+            studentVOList = studentDAO.selectByKeywords(keywords);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return studentVOList;
+    }
 }

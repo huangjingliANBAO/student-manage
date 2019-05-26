@@ -22,10 +22,8 @@ public class JDBCUtil {
         }
         return jdbcUtil;
     }
-
     private JDBCUtil() {
     }
-
     // 通过静态代码块注册数据库驱动，保证注册只执行一次
     static {
         try {

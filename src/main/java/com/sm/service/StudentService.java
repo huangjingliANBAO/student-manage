@@ -11,4 +11,7 @@ public interface StudentService {
      * @return List
      */
     List<StudentVO> selectAll();
+    List<StudentVO> selectByDepartmentId(int departmentId);
+    List<StudentVO> selectByClassId(int classId);
+    List<StudentVO> selectByKeywords(String keywords);
 }

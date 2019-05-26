@@ -12,4 +12,28 @@ public interface StudentDAO {
      * @throws SQLException
      */
     List<StudentVO> selectAll()throws SQLException;
+
+    /**
+     * 根据院系id查询学生信息
+     * @param departmentId
+     * @return
+     * @throws SQLException
+     */
+    List<StudentVO> selectByDepartmentId(int departmentId)throws SQLException;
+
+    /**
+     * 根据班级id查询学生信息
+     * @param classId
+     * @return
+     * @throws SQLException
+     */
+    List<StudentVO> selectByClassId(int classId)throws SQLException;
+
+    /**
+     * 根据关键字查询学生信息
+     * @param keywords
+     * @return
+     * @throws SQLException
+     */
+    List<StudentVO> selectByKeywords(String keywords)throws SQLException;
 }

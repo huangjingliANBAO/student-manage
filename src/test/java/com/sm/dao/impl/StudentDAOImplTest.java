@@ -12,7 +12,8 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class StudentDAOImplTest {
-private StudentDAO studentDAO = DAOFactory.getStudentDAOInstance();
+    private StudentDAO studentDAO = DAOFactory.getStudentDAOInstance();
+
     @Test
     public void selectAll() {
         List<StudentVO> studentList = null;
@@ -22,5 +23,38 @@ private StudentDAO studentDAO = DAOFactory.getStudentDAOInstance();
             e.printStackTrace();
         }
         studentList.forEach(student -> System.out.println(student));
+    }
+
+    @Test
+    public void selectByDepartmentId() {
+        List<StudentVO> studentVOList = null;
+        try {
+            studentVOList = studentDAO.selectByDepartmentId(2);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        studentVOList.forEach(studentVO -> System.out.println(studentVO));
+    }
+
+    @Test
+    public void selectByClassId() {
+        List<StudentVO> studentList = null;
+        try {
+            studentList = studentDAO.selectByClassId(3);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        studentList.forEach(studentVO -> System.out.println(studentVO));
+    }
+
+    @Test
+    public void selectByKeywords() {
+        List<StudentVO> studentList = null;
+        try {
+            studentList = studentDAO.selectByKeywords("美");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        studentList.forEach(studentVO -> System.out.println(studentVO));
     }
 }

@@ -44,7 +44,7 @@ public class AliOSSUtil {
         return url.toString();
     }
     public static void main(String[] args) {
-        File file = new File("D:/image/1.png");
+        File file = new File("E:/java-study-file/image/1.png");
         String url = ossUpload(file);
         System.out.println(url);
     }
