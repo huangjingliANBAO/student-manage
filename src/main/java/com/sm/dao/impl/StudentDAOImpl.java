@@ -1,6 +1,7 @@
 package com.sm.dao.impl;
 
 import com.sm.dao.StudentDAO;
+import com.sm.entity.Student;
 import com.sm.entity.StudentVO;
 import com.sm.utils.JDBCUtil;
 
@@ -91,6 +92,34 @@ public class StudentDAOImpl implements StudentDAO {
         pstmt.close();
         jdbcUtil.closeConnection();
         return studentList;
+    }
+
+    @Override
+    public int updateStudent(Student student) throws SQLException {
+        JDBCUtil jdbcUtil = JDBCUtil.getInitJDBCUtil();
+        Connection connection = jdbcUtil.getConnection();
+        String sql = "UPDATE  t_student SET address = ? ,phone = ? WHERE id=?";
+        PreparedStatement pstmt = connection.prepareStatement(sql);
+        pstmt.setString(1,student.getAddress());
+        pstmt.setString(2,student.getPhone());
+        pstmt.setString(3,student.getId());
+        int n = pstmt.executeUpdate();
+        pstmt.close();
+        connection.close();
+        return n;
+    }
+
+    @Override
+    public int deleteById(String id) throws SQLException {
+        JDBCUtil jdbcUtil = JDBCUtil.getInitJDBCUtil();
+        Connection connection = jdbcUtil.getConnection();
+        String sql = "DELETE FROM t_student WHERE id=?";
+        PreparedStatement pstmt = connection.prepareStatement(sql);
+        pstmt.setString(1,id);
+        int n = pstmt.executeUpdate();
+        pstmt.close();
+        connection.close();
+        return n;
     }
 
     /**

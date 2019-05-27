@@ -1,9 +1,6 @@
 package com.sm.frame;
 
-import com.sm.entity.Admin;
-import com.sm.entity.CClass;
-import com.sm.entity.Department;
-import com.sm.entity.StudentVO;
+import com.sm.entity.*;
 import com.sm.factory.DAOFactory;
 import com.sm.factory.ServiceFactory;
 import com.sm.ui.ImgPanel;
@@ -11,6 +8,7 @@ import com.sm.utils.AliOSSUtil;
 import net.coobird.thumbnailator.Thumbnails;
 import sun.swing.table.DefaultTableCellHeaderRenderer;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -74,15 +72,17 @@ public class AdminMainFrame extends JFrame {
     private JLabel stuClassLabel;
     private JLabel stuNameLabel;
     private JLabel stuGenderLabel;
-    private JTextField stuAddressFiele;
-    private JTextField stuPhoneFiele;
+    private JTextField stuAddressField;
+    private JTextField stuPhoneField;
     private JLabel stuBirthLabel;
     private JLabel stuAvatarLabel;
     private JPanel stuTopPanel;
     private JButton 刷新数据Button1;
     private JButton 初始化数据Button;
     private JButton 编辑Button;
+    private JLabel personalInformationLabel;
     private int departmentId = 0;
+    private int row;
 
 
     public AdminMainFrame(Admin admin) {
@@ -95,8 +95,10 @@ public class AdminMainFrame extends JFrame {
         //显示管理员
         this.admin = admin;
         adminLabel.setText("当前管理员：" + admin.getAdminName());
-        Font font = new Font("微软雅黑", 0, 20);
+        Font font = new Font("微软雅黑", Font.BOLD, 20);
         adminLabel.setFont(font);
+        Font font1 = new Font("微软雅黑", Font.BOLD, 30);
+        personalInformationLabel.setFont(font1);
         //显示本地时间
         SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
         clockTask = new TimerTask() {
@@ -150,19 +152,19 @@ public class AdminMainFrame extends JFrame {
                 tip2.setClassName("请选择班级");
                 comboBox2.addItem(tip2);
                 List<Department> departmentList = ServiceFactory.getDepartmentServiceInstance().selectAll();
-                for (Department department : departmentList){
+                for (Department department : departmentList) {
                     comboBox1.addItem(department);
                 }
                 List<CClass> cClassList = ServiceFactory.getCClassServiceInstance().selectAll();
-                for (CClass cClass : cClassList){
+                for (CClass cClass : cClassList) {
                     comboBox2.addItem(cClass);
                 }
                 comboBox1.addItemListener(new ItemListener() {
                     @Override
                     public void itemStateChanged(ItemEvent e) {
-                        if (e.getStateChange() == ItemEvent.SELECTED){
+                        if (e.getStateChange() == ItemEvent.SELECTED) {
                             int index = comboBox1.getSelectedIndex();
-                            if (index != 0){
+                            if (index != 0) {
                                 departmentId = comboBox1.getItemAt(index).getId();
                                 List<StudentVO> studentList = ServiceFactory.getStudentServiceInstance().selectByDepartmentId(departmentId);
                                 showStudentTable(studentList);
@@ -171,20 +173,20 @@ public class AdminMainFrame extends JFrame {
                                 CClass tip = new CClass();
                                 tip.setClassName("请选择班级");
                                 comboBox2.addItem(tip);
-                                for (CClass cClass : cClassList){
+                                for (CClass cClass : cClassList) {
                                     comboBox2.addItem(cClass);
                                 }
                                 comboBox2.addItemListener(new ItemListener() {
                                     @Override
                                     public void itemStateChanged(ItemEvent e) {
-                                       if (e.getStateChange() == ItemEvent.SELECTED){
-                                           int index = comboBox2.getSelectedIndex();
-                                           if (index != 0){
-                                               int classId = comboBox2.getItemAt(index).getId();
-                                               List<StudentVO> studentList = ServiceFactory.getStudentServiceInstance().selectByClassId(classId);
-                                               showStudentTable(studentList);
-                                           }
-                                       }
+                                        if (e.getStateChange() == ItemEvent.SELECTED) {
+                                            int index = comboBox2.getSelectedIndex();
+                                            if (index != 0) {
+                                                int classId = comboBox2.getItemAt(index).getId();
+                                                List<StudentVO> studentList = ServiceFactory.getStudentServiceInstance().selectByClassId(classId);
+                                                showStudentTable(studentList);
+                                            }
+                                        }
                                     }
                                 });
                             }
@@ -340,19 +342,19 @@ public class AdminMainFrame extends JFrame {
                 CClass tip2 = new CClass();
                 tip2.setClassName("请选择班级");
                 List<CClass> cClassList = ServiceFactory.getCClassServiceInstance().selectAll();
-                for (CClass cClass : cClassList){
+                for (CClass cClass : cClassList) {
                     comboBox2.addItem(cClass);
                 }
-            stuAvatarLabel.setText("<html><img src='https://huangjingli.oss-cn-beijing.aliyuncs.com/logo/%E9%BB%98%E8%AE%A4%E5%A4%B4%E5%83%8F1.png'/></html>");
+                stuAvatarLabel.setText("<html><img src='https://huangjingli.oss-cn-beijing.aliyuncs.com/logo/%E9%BB%98%E8%AE%A4%E5%A4%B4%E5%83%8F1.png'/></html>");
                 stuIdLabel.setText("未选择");
                 stuDepLabel.setText("未选择");
                 stuClassLabel.setText("未选择");
                 stuNameLabel.setText("未选择");
                 stuGenderLabel.setText("未选择");
                 stuBirthLabel.setText("未选择");
-                stuAddressFiele.setText("未选择");
-                stuPhoneFiele.setText("");
-                stuAddressFiele.setText("");
+                stuAddressField.setText("未选择");
+                stuPhoneField.setText("");
+                stuAddressField.setText("");
                 searchField.setText("");
                 编辑Button.setVisible(false);
                 编辑Button.setText("保存");
@@ -363,7 +365,7 @@ public class AdminMainFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String keywords = searchField.getText().trim();
                 List<StudentVO> studentList = ServiceFactory.getStudentServiceInstance().selectByKeywords(keywords);
-                if (studentList != null){
+                if (studentList != null) {
                     showStudentTable(studentList);
                 }
             }
@@ -459,7 +461,6 @@ public class AdminMainFrame extends JFrame {
             jPopupMenu.add(item1);
             jPopupMenu.add(item2);
             jList.add(jPopupMenu);
-
             jList.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -489,6 +490,7 @@ public class AdminMainFrame extends JFrame {
 
         }
     }
+
     private void showTree(List<Department> departmentList) {
         treePanel.removeAll();
         DefaultMutableTreeNode top = new DefaultMutableTreeNode("南工院");
@@ -542,7 +544,7 @@ public class AdminMainFrame extends JFrame {
         //设置表格行高
         table.setRowHeight(35);
         //表格背景色
-        table.setBackground(new Color(200, 232, 61));
+        table.setBackground(new Color(246, 154, 181));
         //表格内容居中
         DefaultTableCellHeaderRenderer r = new DefaultTableCellHeaderRenderer();
         r.setHorizontalAlignment(JLabel.CENTER);
@@ -551,25 +553,100 @@ public class AdminMainFrame extends JFrame {
         JScrollPane scrollPane = new JScrollPane(table, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         tablePanel.add(scrollPane);
         tablePanel.revalidate();
-        //表格内容选择监听，点击一行，在右边显示这个学生信息
-        table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+        JPopupMenu jPopupMenu = new JPopupMenu();
+        JMenuItem item = new JMenuItem("删除");
+        jPopupMenu.add(item);
+        table.add(jPopupMenu);
+
+        table.addMouseListener(new MouseAdapter() {
             @Override
-            public void valueChanged(ListSelectionEvent e) {
-                int row = table.getSelectedRow();
+            public void mouseClicked(MouseEvent e) {
+                row = table.getSelectedRow();
                 stuIdLabel.setText(table.getValueAt(row, 0).toString());
                 stuDepLabel.setText(table.getValueAt(row, 1).toString());
                 stuClassLabel.setText(table.getValueAt(row, 2).toString());
                 stuNameLabel.setText(table.getValueAt(row, 3).toString());
                 stuGenderLabel.setText(table.getValueAt(row, 4).toString());
-                stuAddressFiele.setText(table.getValueAt(row, 5).toString());
-                stuPhoneFiele.setText(table.getValueAt(row, 6).toString());
+                stuAddressField.setText(table.getValueAt(row, 5).toString());
+                stuPhoneField.setText(table.getValueAt(row, 6).toString());
                 stuBirthLabel.setText(table.getValueAt(row, 7).toString());
                 stuAvatarLabel.setText("<html><img src='" + table.getValueAt(row, 8).toString() + "'/></html>");
+                //设置字体大小
+                Font font = new Font("微软雅黑", Font.BOLD, 18);
+                stuIdLabel.setFont(font);
+                stuDepLabel.setFont(font);
+                stuClassLabel.setFont(font);
+                stuNameLabel.setFont(font);
+                stuGenderLabel.setFont(font);
+                stuAddressField.setFont(font);
+                stuPhoneField.setFont(font);
+                stuBirthLabel.setFont(font);
                 编辑Button.setVisible(true);
                 编辑Button.setText("编辑");
+//            }
+//        });
+                //表格内容选择监听，点击一行，在右边显示这个学生信息
+//        table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+//            @Override
+//            public void valueChanged(ListSelectionEvent e) {
+//                int row = table.getSelectedRow();
+//                stuIdLabel.setText(table.getValueAt(row, 0).toString());
+//                stuDepLabel.setText(table.getValueAt(row, 1).toString());
+//                stuClassLabel.setText(table.getValueAt(row, 2).toString());
+//                stuNameLabel.setText(table.getValueAt(row, 3).toString());
+//                stuGenderLabel.setText(table.getValueAt(row, 4).toString());
+//                stuAddressField.setText(table.getValueAt(row, 5).toString());
+//                stuPhoneField.setText(table.getValueAt(row, 6).toString());
+//                stuBirthLabel.setText(table.getValueAt(row, 7).toString());
+//                stuAvatarLabel.setText("<html><img src='" + table.getValueAt(row, 8).toString() + "'/></html>");
+//                编辑Button.setVisible(true);
+//                编辑Button.setText("编辑");
+                编辑Button.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (e.getActionCommand().equals("编辑")) {
+                            stuAddressField.setEditable(true);
+                            stuAddressField.setEditable(true);
+                            stuPhoneField.setEditable(true);
+                            stuPhoneField.setEditable(true);
+                            编辑Button.setText("保存");
+                        }
+                        if (e.getActionCommand().equals("保存")) {
+                            Student student = new Student();
+                            student.setId(stuIdLabel.getText());
+                            student.setAddress(stuAddressField.getText());
+                            student.setPhone(stuPhoneField.getText());
+                            int n = ServiceFactory.getStudentServiceInstance().updateStudent(student);
+                            if (n == 1) {
+                                model.setValueAt(stuAddressField.getText(), row, 5);
+                                model.setValueAt(stuPhoneField.getText(), row, 6);
+                                stuAddressField.setEditable(false);
+                                stuAddressField.setEditable(false);
+                                stuPhoneField.setEditable(false);
+                                stuPhoneField.setEditable(false);
+                                编辑Button.setText("编辑");
+                            }
+                        }
+                    }
+                });
+                if (e.getButton() == 3) {
+                    jPopupMenu.show(table, e.getX(), e.getY());
+                }
+            }
+        });
+        item.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String id = (String) table.getValueAt(row, 0);
+                int choice = JOptionPane.showConfirmDialog(tablePanel, "确定删除吗？");
+                if (choice == 0) {
+                    model.removeRow(row);
+                }
+                ServiceFactory.getStudentServiceInstance().deleteById(id);
             }
         });
     }
+
     public static void main(String[] args) throws Exception {
         new AdminMainFrame(DAOFactory.getAdminDAOInstance().getAdminByAccount("111"));
         String lookAndFeel = UIManager.getSystemLookAndFeelClassName();

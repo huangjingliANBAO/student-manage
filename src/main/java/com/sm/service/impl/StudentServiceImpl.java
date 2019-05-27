@@ -55,4 +55,26 @@ public class StudentServiceImpl implements StudentService {
         }
         return studentVOList;
     }
+
+    @Override
+    public int updateStudent(Student student) {
+        int n = 0;
+        try {
+            n = studentDAO.updateStudent(student);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return n;
+    }
+
+    @Override
+    public int deleteById(String id) {
+        int n = 0;
+        try {
+            n = studentDAO.deleteById(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return n;
+    }
 }

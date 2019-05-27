@@ -14,4 +14,6 @@ public interface StudentService {
     List<StudentVO> selectByDepartmentId(int departmentId);
     List<StudentVO> selectByClassId(int classId);
     List<StudentVO> selectByKeywords(String keywords);
+    int updateStudent(Student student);
+    int deleteById(String id);
 }

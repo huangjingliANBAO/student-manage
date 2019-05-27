@@ -57,4 +57,20 @@ public class StudentDAOImplTest {
         }
         studentList.forEach(studentVO -> System.out.println(studentVO));
     }
+
+    @Test
+    public void updateStudent() throws SQLException {
+        Student student = new Student();
+        student.setId("1802343301");
+        student.setAddress("美国洛杉矶");
+        student.setPhone("14444");
+        int n = studentDAO.updateStudent(student);
+        assertEquals(1, n);
+    }
+
+    @Test
+    public void deleteById() throws SQLException {
+        int n = studentDAO.deleteById("1802343315");
+        assertEquals(1, n);
+    }
 }

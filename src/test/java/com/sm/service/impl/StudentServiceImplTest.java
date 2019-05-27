@@ -1,5 +1,6 @@
 package com.sm.service.impl;
 
+import com.sm.entity.Student;
 import com.sm.entity.StudentVO;
 import com.sm.factory.ServiceFactory;
 import com.sm.service.StudentService;
@@ -33,5 +34,19 @@ private StudentService studentService = ServiceFactory.getStudentServiceInstance
     public void selectByKeywords() {
         List<StudentVO> studentVOList = studentService.selectByKeywords("腊");
         studentVOList.forEach(studentVO -> System.out.println(studentVO));
+    }
+    @Test
+    public void updateStudent() {
+        Student student = new Student();
+        student.setId("1802343311");
+        student.setAddress("西班牙巴塞罗那");
+        student.setPhone("133333");
+        studentService.updateStudent(student);
+    }
+
+    @Test
+    public void deleteById() {
+     String id = "1802343310";
+     studentService.deleteById(id);
     }
 }
