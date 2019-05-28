@@ -52,4 +52,21 @@ public interface StudentDAO {
      * @throws SQLException
      */
     int deleteById(String id)throws SQLException;
+
+    /**
+     *
+     * @param student
+     * @return  int
+     * @throws SQLException
+     */
+    int insertStudent(Student student)throws SQLException;
+
+    /**
+     *  根据院系id统计学生人数
+     * @param departmentId
+     * @return int
+     * @throws SQLException
+     */
+    int countByDepartmentId(int departmentId)throws SQLException;
+    int countByClassId(int classId) throws SQLException;
 }

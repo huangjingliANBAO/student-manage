@@ -12,12 +12,13 @@ import static org.junit.Assert.*;
 
 public class CClassDAOImplTest {
     private CClassDAO cClassDAO = DAOFactory.getCClassDAOInstance();
+
     @Test
     public void selectByDepartmentId() {
         List<CClass> cClassList = null;
         try {
             cClassList = cClassDAO.selectByDepartmentId(4);
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         cClassList.forEach(cClass -> System.out.println(cClass));
@@ -26,7 +27,7 @@ public class CClassDAOImplTest {
 
     @Test
     public void deleteClassById() {
-     int id = 1;
+        int id = 1;
         try {
             cClassDAO.deleteClassById(id);
         } catch (SQLException e) {
@@ -55,5 +56,12 @@ public class CClassDAOImplTest {
             e.printStackTrace();
         }
         cClassList.forEach(cClass -> System.out.println(cClass));
+    }
+
+
+    @Test
+    public void countByDepartmentId()throws SQLException {
+        int n = cClassDAO.countByDepartmentId(1);
+        System.out.println(n);
     }
 }

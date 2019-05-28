@@ -21,10 +21,9 @@ import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.*;
 import java.util.List;
 import java.util.Timer;
-import java.util.TimerTask;
 
 public class AdminMainFrame extends JFrame {
     private ImgPanel rootPanel;
@@ -370,23 +369,39 @@ public class AdminMainFrame extends JFrame {
                 }
             }
         });
+        新增学生Button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //打开新增学生界面
+                new AddStudentFrame(AdminMainFrame.this);
+                AdminMainFrame.this.setEnabled(false);
+            }
+        });
     }
 
-    private void showDepartments() {
+    public void showDepartments() {
         //移除原有数据
         contentPanel.removeAll();
         //从service层获取到所有院系列表
-        List<Department> departmentList = ServiceFactory.getDepartmentServiceInstance().selectAll();
+        List<Map> departmentList = ServiceFactory.getDepartmentServiceInstance().selectDepartmentInfo();
         //int len = departmentList.size();
         //int row = len % 4 == 0 ? len / 4 : len / 4 + 1;
         GridLayout gridLayout = new GridLayout(0, 4, 20, 20);
         contentPanel.setLayout(gridLayout);
-        for (Department department : departmentList) {
+        for (Map map : departmentList) {
             //给每个院系对象创建一个面板
             JPanel depPanel = new JPanel();
-            depPanel.setPreferredSize(new Dimension(400, 420));
-            //将院系名称设置给面板标题
-            depPanel.setBorder(BorderFactory.createTitledBorder(department.getDepartmentName()));
+          Department department = (Department) map.get("department");
+          int classCount=(int) map.get("classCount");
+          int studentCount = (int) map.get("studentCount");
+          depPanel.setBackground(new Color(203, 93, 137));
+          depPanel.setPreferredSize(new Dimension(300,300));
+          depPanel.setBorder(BorderFactory.createTitledBorder(department.getDepartmentName()));
+          JLabel logoLabel = new JLabel("<html><img src ='" + department.getLogo() + "'/></html>");
+          logoLabel.setPreferredSize(new Dimension(280,280));
+          depPanel.add(logoLabel);
+          JLabel infoLabel = new JLabel("班级" + classCount + "个,学生" + studentCount + "人");
+          depPanel.add(infoLabel);
             JButton delBtn = new JButton("删除");
             delBtn.addMouseListener(new MouseAdapter() {
                 @Override
@@ -401,10 +416,6 @@ public class AdminMainFrame extends JFrame {
                 }
             });
             delBtn.setPreferredSize(new Dimension(100, 50));
-            //新建一个Label用来放置院系logo，并指定大小
-            JLabel logoLabel = new JLabel("<html><img src='" + department.getLogo() + "' width=300 height=280/></html>");
-            //图标标签加入院系面板
-            depPanel.add(logoLabel);
             depPanel.add(delBtn);
             //院系面板加入主体内容面板
             contentPanel.add(depPanel);
@@ -493,13 +504,15 @@ public class AdminMainFrame extends JFrame {
 
     private void showTree(List<Department> departmentList) {
         treePanel.removeAll();
+        //左侧树形结构根节点
         DefaultMutableTreeNode top = new DefaultMutableTreeNode("南工院");
         for (Department department : departmentList) {
             DefaultMutableTreeNode group = new DefaultMutableTreeNode(department.getDepartmentName());
             top.add(group);
             List<CClass> cClassList = ServiceFactory.getCClassServiceInstance().selectByDepartmentId(department.getId());
             for (CClass cClass : cClassList) {
-                DefaultMutableTreeNode node = new DefaultMutableTreeNode(cClass.getClassName());
+                int num = ServiceFactory.getStudentServiceInstance().countStudentByClassId(cClass.getId());
+                DefaultMutableTreeNode node = new DefaultMutableTreeNode(cClass.getClassName() + "（" + num + "人)");
                 group.add(node);
             }
         }
@@ -510,7 +523,7 @@ public class AdminMainFrame extends JFrame {
         treePanel.revalidate();
     }
 
-    private void showStudentTable(List<StudentVO> studentList) {
+    public void showStudentTable(List<StudentVO> studentList) {
         tablePanel.removeAll();
         //获得所有学生视图数据
         //创建表格

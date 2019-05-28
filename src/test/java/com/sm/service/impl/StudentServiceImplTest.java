@@ -6,6 +6,7 @@ import com.sm.factory.ServiceFactory;
 import com.sm.service.StudentService;
 import org.junit.Test;
 
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -48,5 +49,23 @@ private StudentService studentService = ServiceFactory.getStudentServiceInstance
     public void deleteById() {
      String id = "1802343310";
      studentService.deleteById(id);
+    }
+
+    @Test
+    public void insertStudent() {
+        Student student = new Student();
+        student.setId("111221");
+        student.setClassId(3);
+        student.setStudentName("测试");
+        student.setAvatar("https://huangjingli.oss-cn-beijing.aliyuncs.com/logo/%E8%A9%B9%E5%A7%86%E6%96%AF.jpg");
+        student.setBirthday(new Date());
+        student.setGender("男");
+        student.setAvatar("美国");
+        student.setPhone("3252351");
+        studentService.insertStudent(student);
+    }
+
+    @Test
+    public void countStudentByClassId() {
     }
 }
