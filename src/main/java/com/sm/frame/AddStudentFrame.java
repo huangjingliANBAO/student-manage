@@ -117,7 +117,6 @@ public class AddStudentFrame extends JFrame {
           List<StudentVO> studentList = ServiceFactory.getStudentServiceInstance().selectAll();
           adminMainFrame.showStudentTable(studentList);
                 }
-                adminMainFrame.setEnabled(true);
             }
         });
         closeLabel.addMouseListener(new MouseAdapter() {

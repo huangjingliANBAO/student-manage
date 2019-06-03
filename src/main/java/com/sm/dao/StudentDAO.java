@@ -54,7 +54,7 @@ public interface StudentDAO {
     int deleteById(String id)throws SQLException;
 
     /**
-     *
+     * 新增学生
      * @param student
      * @return  int
      * @throws SQLException

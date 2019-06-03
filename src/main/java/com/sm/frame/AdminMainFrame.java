@@ -1,17 +1,13 @@
 package com.sm.frame;
 
 import com.sm.entity.*;
-import com.sm.factory.DAOFactory;
 import com.sm.factory.ServiceFactory;
 import com.sm.ui.ImgPanel;
 import com.sm.utils.AliOSSUtil;
 import net.coobird.thumbnailator.Thumbnails;
 import sun.swing.table.DefaultTableCellHeaderRenderer;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
@@ -41,7 +37,6 @@ public class AdminMainFrame extends JFrame {
     private JPanel leftPanel;
     private JPanel classPanel;
     private JPanel studentPanel;
-    private JPanel rewardPunishPanel;
     private JPanel contentPanel;
     private JLabel logoLabel;
     private JLabel adminLabel;
@@ -80,11 +75,16 @@ public class AdminMainFrame extends JFrame {
     private JButton 初始化数据Button;
     private JButton 编辑Button;
     private JLabel personalInformationLabel;
+    private JPanel rewardPunishPanel;
+    private JPanel rpLeftPanel;
+    private JLabel rewardLabel;
+    private JPanel rewardPanel;
+    private JLabel insertRewardStudent;
+
     private int departmentId = 0;
     private int row;
 
-
-    public AdminMainFrame(Admin admin) {
+    public AdminMainFrame() {
         setContentPane(rootPanel);
         setTitle("学生管理系统");
         setVisible(true);
@@ -92,11 +92,10 @@ public class AdminMainFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         showDepartments();
         //显示管理员
-        this.admin = admin;
-        adminLabel.setText("当前管理员：" + admin.getAdminName());
+        adminLabel.setText("欢迎您！管理员");
         Font font = new Font("微软雅黑", Font.BOLD, 20);
         adminLabel.setFont(font);
-        Font font1 = new Font("微软雅黑", Font.BOLD, 30);
+        Font font1 = new Font("微软雅黑", Font.BOLD, 22);
         personalInformationLabel.setFont(font1);
         //显示本地时间
         SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
@@ -110,18 +109,17 @@ public class AdminMainFrame extends JFrame {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                timeLabel.setText(a);
+                timeLabel.setText("今天是：" + a);
                 timeLabel.setFont(font);
             }
         };
         timer = new Timer();
         timer.schedule(clockTask, 0, 1000);
         //设置需要的背景图
-        rootPanel.setFileName("bg.jpg");
+        rootPanel.setFileName("bg4.jpg");
         //组件重绘
         rootPanel.repaint();
         CardLayout cardLayout = (CardLayout) centerPanel.getLayout();
-
         院系管理Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -139,9 +137,8 @@ public class AdminMainFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 cardLayout.show(centerPanel, "Card3");
-                infoPanel.setFileName("login.jpg");
+                infoPanel.setFileName("card.jpg");
                 infoPanel.repaint();
-
                 List<StudentVO> studentList = ServiceFactory.getStudentServiceInstance().selectAll();
                 showStudentTable(studentList);
                 Department tip1 = new Department();
@@ -175,29 +172,30 @@ public class AdminMainFrame extends JFrame {
                                 for (CClass cClass : cClassList) {
                                     comboBox2.addItem(cClass);
                                 }
-                                comboBox2.addItemListener(new ItemListener() {
-                                    @Override
-                                    public void itemStateChanged(ItemEvent e) {
-                                        if (e.getStateChange() == ItemEvent.SELECTED) {
-                                            int index = comboBox2.getSelectedIndex();
-                                            if (index != 0) {
-                                                int classId = comboBox2.getItemAt(index).getId();
-                                                List<StudentVO> studentList = ServiceFactory.getStudentServiceInstance().selectByClassId(classId);
-                                                showStudentTable(studentList);
-                                            }
-                                        }
-                                    }
-                                });
                             }
                         }
                     }
                 });
             }
         });
+        comboBox2.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    int index = comboBox2.getSelectedIndex();
+                    if (index != 0) {
+                        int classId = comboBox2.getItemAt(index).getId();
+                        List<StudentVO> studentList = ServiceFactory.getStudentServiceInstance().selectByClassId(classId);
+                        showStudentTable(studentList);
+                    }
+                }
+            }
+        });
         奖惩管理Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 cardLayout.show(centerPanel, "Card4");
+                showReward();
             }
         });
         新增院系Button.addActionListener(new ActionListener() {
@@ -215,6 +213,7 @@ public class AdminMainFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 showDepartments();
+
             }
         });
         depNameField.addActionListener(new ActionListener() {
@@ -227,7 +226,7 @@ public class AdminMainFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fileChooser = new JFileChooser();
-                fileChooser.setCurrentDirectory(new File("D:/image/"));
+                fileChooser.setCurrentDirectory(new File("E:/java-study/image/"));
                 int result = fileChooser.showOpenDialog(rootPanel);
                 if (result == JFileChooser.APPROVE_OPTION) {
                     //选中文件
@@ -280,7 +279,7 @@ public class AdminMainFrame extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 JFileChooser fileChooser = new JFileChooser();
-                fileChooser.setCurrentDirectory(new File("D:/image"));
+                fileChooser.setCurrentDirectory(new File("E:/java-study-file/image/"));
                 int result = fileChooser.showOpenDialog(rootPanel);
                 if (result == JFileChooser.APPROVE_OPTION) {
                     logoLabel.removeAll();
@@ -374,11 +373,16 @@ public class AdminMainFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 //打开新增学生界面
                 new AddStudentFrame(AdminMainFrame.this);
-                AdminMainFrame.this.setEnabled(false);
+                // AdminMainFrame.this.setEnabled(false);
+            }
+        });
+        insertRewardStudent.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                new AddRewardFrame(AdminMainFrame.this);
             }
         });
     }
-
     public void showDepartments() {
         //移除原有数据
         contentPanel.removeAll();
@@ -391,17 +395,16 @@ public class AdminMainFrame extends JFrame {
         for (Map map : departmentList) {
             //给每个院系对象创建一个面板
             JPanel depPanel = new JPanel();
-          Department department = (Department) map.get("department");
-          int classCount=(int) map.get("classCount");
-          int studentCount = (int) map.get("studentCount");
-          depPanel.setBackground(new Color(203, 93, 137));
-          depPanel.setPreferredSize(new Dimension(300,300));
-          depPanel.setBorder(BorderFactory.createTitledBorder(department.getDepartmentName()));
-          JLabel logoLabel = new JLabel("<html><img src ='" + department.getLogo() + "'/></html>");
-          logoLabel.setPreferredSize(new Dimension(280,280));
-          depPanel.add(logoLabel);
-          JLabel infoLabel = new JLabel("班级" + classCount + "个,学生" + studentCount + "人");
-          depPanel.add(infoLabel);
+            Department department = (Department) map.get("department");
+            int classCount = (int) map.get("classCount");
+            int studentCount = (int) map.get("studentCount");
+            depPanel.setPreferredSize(new Dimension(300, 300));
+            depPanel.setBorder(BorderFactory.createTitledBorder(department.getDepartmentName()));
+            JLabel logoLabel = new JLabel("<html><img src ='" + department.getLogo() + "'/></html>");
+            logoLabel.setPreferredSize(new Dimension(280, 280));
+            depPanel.add(logoLabel);
+            JLabel infoLabel = new JLabel("班级" + classCount + "个,学生" + studentCount + "人");
+            depPanel.add(infoLabel);
             JButton delBtn = new JButton("删除");
             delBtn.addMouseListener(new MouseAdapter() {
                 @Override
@@ -443,7 +446,7 @@ public class AdminMainFrame extends JFrame {
         Font titleFont = new Font("微软雅黑", Font.PLAIN, 20);
         for (Department department : departmentList) {
             ImgPanel depPanel = new ImgPanel();
-            depPanel.setFileName("login.jpg");
+            depPanel.setFileName("list.jpg");
             depPanel.repaint();
             depPanel.setPreferredSize(new Dimension(350, 500));
             depPanel.setLayout(null);
@@ -596,24 +599,6 @@ public class AdminMainFrame extends JFrame {
                 stuBirthLabel.setFont(font);
                 编辑Button.setVisible(true);
                 编辑Button.setText("编辑");
-//            }
-//        });
-                //表格内容选择监听，点击一行，在右边显示这个学生信息
-//        table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-//            @Override
-//            public void valueChanged(ListSelectionEvent e) {
-//                int row = table.getSelectedRow();
-//                stuIdLabel.setText(table.getValueAt(row, 0).toString());
-//                stuDepLabel.setText(table.getValueAt(row, 1).toString());
-//                stuClassLabel.setText(table.getValueAt(row, 2).toString());
-//                stuNameLabel.setText(table.getValueAt(row, 3).toString());
-//                stuGenderLabel.setText(table.getValueAt(row, 4).toString());
-//                stuAddressField.setText(table.getValueAt(row, 5).toString());
-//                stuPhoneField.setText(table.getValueAt(row, 6).toString());
-//                stuBirthLabel.setText(table.getValueAt(row, 7).toString());
-//                stuAvatarLabel.setText("<html><img src='" + table.getValueAt(row, 8).toString() + "'/></html>");
-//                编辑Button.setVisible(true);
-//                编辑Button.setText("编辑");
                 编辑Button.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -660,8 +645,33 @@ public class AdminMainFrame extends JFrame {
         });
     }
 
+    public void showReward() {
+        rewardPanel.removeAll();
+        List<RewardStudent> rewardStudentList = ServiceFactory.getRewardStudentServiceInstance().getAll();
+        GridLayout gridLayout1 = new GridLayout(0, 3, 15, 15);
+        rewardPanel.setLayout(gridLayout1);
+        for (RewardStudent rewardStudent : rewardStudentList) {
+            JPanel rsPanel = new JPanel();
+            rsPanel.setPreferredSize(new Dimension(320, 360));
+            JLabel dpLabel = new JLabel("院系：" + rewardStudent.getDepartmentName());
+            JLabel classIdLabel = new JLabel("班级：" + rewardStudent.getClassId());
+            JLabel idLabel = new JLabel("学号：" + rewardStudent.getId());
+            JLabel snLabel = new JLabel("姓名：" + rewardStudent.getStudentName());
+            JLabel rewardLabel = new JLabel("荣获2019年:" + rewardStudent.getReward());
+            JLabel logoLabel = new JLabel("<html><img src = '" + rewardStudent.getLogo() + "' width=300 height=300 /></html>");
+            rsPanel.add(dpLabel);
+            rsPanel.add(classIdLabel);
+            rsPanel.add(idLabel);
+            rsPanel.add(snLabel);
+            rsPanel.add(rewardLabel);
+            rsPanel.add(logoLabel);
+            rewardPanel.add(rsPanel);
+            rewardPanel.revalidate();
+        }
+    }
+
     public static void main(String[] args) throws Exception {
-        new AdminMainFrame(DAOFactory.getAdminDAOInstance().getAdminByAccount("111"));
+        new AdminMainFrame();
         String lookAndFeel = UIManager.getSystemLookAndFeelClassName();
         UIManager.setLookAndFeel(lookAndFeel);
     }

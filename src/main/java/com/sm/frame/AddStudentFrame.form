@@ -128,12 +128,12 @@
       </grid>
       <component id="3589f" class="javax.swing.JLabel" binding="avatarLabel">
         <constraints>
-          <grid row="9" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false">
+          <grid row="9" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
             <preferred-size width="80" height="80"/>
           </grid>
         </constraints>
         <properties>
-          <icon value="img/新增.png"/>
+          <icon value="img/新增客户1.png"/>
           <text value=""/>
         </properties>
       </component>
@@ -191,6 +191,8 @@
           <grid row="9" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <font size="20" style="1"/>
+          <foreground color="-4500092"/>
           <text value="新增"/>
         </properties>
       </component>
