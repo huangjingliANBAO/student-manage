@@ -87,16 +87,6 @@ public class StudentVO {
 
     @Override
     public String toString() {
-        return "StudentVO{" +
-                "id='" + id + '\'' +
-                ", departmentName='" + departmentName + '\'' +
-                ", className='" + className + '\'' +
-                ", studentName='" + studentName + '\'' +
-                ", gender='" + gender + '\'' +
-                ", birthday=" + birthday +
-                ", address='" + address + '\'' +
-                ", avatar='" + avatar + '\'' +
-                ", phone='" + phone + '\'' +
-                '}';
+        return avatar;
     }
 }

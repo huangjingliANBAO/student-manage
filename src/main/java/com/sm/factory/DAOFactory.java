@@ -2,7 +2,6 @@ package com.sm.factory;
 
 import com.sm.dao.*;
 import com.sm.dao.impl.*;
-import com.sm.entity.RewardStudent;
 
 public class DAOFactory {
     public static AdminDAO getAdminDAOInstance(){
@@ -17,8 +16,8 @@ public class DAOFactory {
     public static StudentDAO getStudentDAOInstance(){
         return new StudentDAOImpl();
     }
-    public static RewardStudentDAO getRewardStudentDAOInstance(){
-        return new RewardStudentDAOImpl();
+    public static RewardSPunishmentDAO getRewardPunishmentDAOInstance(){
+        return new RewardPunishmentDAOImpl();
     }
 
 }

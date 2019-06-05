@@ -187,6 +187,7 @@ public class AdminMainFrame extends JFrame {
                         int classId = comboBox2.getItemAt(index).getId();
                         List<StudentVO> studentList = ServiceFactory.getStudentServiceInstance().selectByClassId(classId);
                         showStudentTable(studentList);
+
                     }
                 }
             }
@@ -195,7 +196,8 @@ public class AdminMainFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 cardLayout.show(centerPanel, "Card4");
-                showReward();
+                List<RewardPunishmentVO> rewardPunishmentVOList = ServiceFactory.getRewardPunishmentServiceInstance().getAll();
+                showReward(rewardPunishmentVOList);
             }
         });
         新增院系Button.addActionListener(new ActionListener() {
@@ -308,7 +310,7 @@ public class AdminMainFrame extends JFrame {
                 //得到选中项的索引
                 int index = depcomboBox.getSelectedIndex();
                 //按照索引取出项，就是一个Department对象，然后取出其id备用
-                Department department = (Department) depcomboBox.getItemAt(index);
+                Department department = depcomboBox.getItemAt(index);
                 departmentId = department.getId();
             }
         });
@@ -645,26 +647,25 @@ public class AdminMainFrame extends JFrame {
         });
     }
 
-    public void showReward() {
+    public void showReward(List<RewardPunishmentVO> rewardPunishmentVOList) {
         rewardPanel.removeAll();
-        List<RewardStudent> rewardStudentList = ServiceFactory.getRewardStudentServiceInstance().getAll();
         GridLayout gridLayout1 = new GridLayout(0, 3, 15, 15);
         rewardPanel.setLayout(gridLayout1);
-        for (RewardStudent rewardStudent : rewardStudentList) {
+        for (RewardPunishmentVO rewardPunishmentVO : rewardPunishmentVOList) {
             JPanel rsPanel = new JPanel();
             rsPanel.setPreferredSize(new Dimension(320, 360));
-            JLabel dpLabel = new JLabel("院系：" + rewardStudent.getDepartmentName());
-            JLabel classIdLabel = new JLabel("班级：" + rewardStudent.getClassId());
-            JLabel idLabel = new JLabel("学号：" + rewardStudent.getId());
-            JLabel snLabel = new JLabel("姓名：" + rewardStudent.getStudentName());
-            JLabel rewardLabel = new JLabel("荣获2019年:" + rewardStudent.getReward());
-            JLabel logoLabel = new JLabel("<html><img src = '" + rewardStudent.getLogo() + "' width=300 height=300 /></html>");
-            rsPanel.add(dpLabel);
-            rsPanel.add(classIdLabel);
+            JLabel idLabel = new JLabel("学号:" + rewardPunishmentVO.getStudentId());
+            JLabel departmentLabel = new JLabel("院系:" + rewardPunishmentVO.getDepartmentName());
+            JLabel classLabel = new JLabel("班级:" + rewardPunishmentVO.getClassName());
+            JLabel rewardLabel = new JLabel("荣誉称号:" + rewardPunishmentVO.getDetails());
+            JLabel timeLabel = new JLabel("获取时间:" + rewardPunishmentVO.getDate1());
+            JLabel avatarLabel = new JLabel("<html><img src='" + rewardPunishmentVO.getAvatar() + "'width=300 height=300/><html>");
             rsPanel.add(idLabel);
-            rsPanel.add(snLabel);
+            rsPanel.add(departmentLabel);
+            rsPanel.add(classLabel);
             rsPanel.add(rewardLabel);
-            rsPanel.add(logoLabel);
+            rsPanel.add(timeLabel);
+            rsPanel.add(avatarLabel);
             rewardPanel.add(rsPanel);
             rewardPanel.revalidate();
         }

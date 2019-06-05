@@ -16,7 +16,7 @@ public class ServiceFactory {
     public static StudentService getStudentServiceInstance(){
         return new StudentServiceImpl();
     }
-    public static RewardStudentService getRewardStudentServiceInstance(){
-        return new RewardStudentServiceImpl();
+    public static RewardPunishmentService getRewardPunishmentServiceInstance(){
+        return new RewardPunishmentServiceImpl();
     }
 }
